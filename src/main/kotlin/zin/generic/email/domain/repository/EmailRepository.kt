@@ -1,11 +1,8 @@
 package zin.generic.email.domain.repository
 
-import org.springframework.data.jpa.repository.JpaRepository
-import zin.generic.Account
-import zin.generic.email.domain.EmailDispatch
+import zin.generic.DispatchRepository
 import zin.generic.email.domain.EmailAddress
+import zin.generic.email.domain.EmailDispatch
+import zin.generic.email.domain.EmailPurpose
 
-interface EmailRepository: JpaRepository<EmailDispatch, Long> {
-
-    fun findByAccount(account: EmailAddress): EmailDispatch?
-}
+interface EmailRepository : DispatchRepository<EmailDispatch, EmailAddress, EmailPurpose>

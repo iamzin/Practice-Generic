@@ -1,6 +1,8 @@
 package zin.generic.sms.domain
 
-enum class SmsPurpose {
+import zin.generic.Purpose
+
+enum class SmsPurpose : Purpose {
     PASSWORD_RESET,
     ACCOUNT_ACTIVATION,
 }

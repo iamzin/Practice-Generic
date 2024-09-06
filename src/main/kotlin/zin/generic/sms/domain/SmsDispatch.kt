@@ -1,24 +1,20 @@
 package zin.generic.sms.domain
 
 import jakarta.persistence.*
+import zin.generic.Dispatch
 
 @Entity
 class SmsDispatch(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
-
-    @Embedded
-    var account: PhoneNumber,
-
-    var message: String,
-
-    var purpose: SmsPurpose,
-) {
+    id: Long? = null,
+    account: PhoneNumber,
+    message: String,
+    purpose: SmsPurpose,
+) : Dispatch<PhoneNumber, SmsPurpose>(id, account, message, purpose) {
     companion object {
-        fun create(account: PhoneNumber, message: String, purpose: SmsPurpose) =
-            SmsDispatch(account = account, message = message, purpose = purpose)
+        fun create(
+            account: PhoneNumber,
+            message: String,
+            purpose: SmsPurpose,
+        ) = SmsDispatch(account = account, message = message, purpose = purpose)
     }
-
-    fun buildRequest() = "Sending sms to ${account.account} with message: $message"
 }

@@ -11,9 +11,10 @@ class EmailDispatch(
     purpose: EmailPurpose,
 ) : Dispatch<EmailAddress, EmailPurpose>(id, account, message, purpose) {
     companion object {
-        fun create(account: EmailAddress, message: String, purpose: EmailPurpose) =
-            EmailDispatch(account = account, message = message, purpose = purpose)
+        fun create(
+            account: EmailAddress,
+            message: String,
+            purpose: EmailPurpose,
+        ) = EmailDispatch(account = account, message = message, purpose = purpose)
     }
-
-    fun buildRequest() = "Sending email to ${account.account} with message: $message"
 }
