@@ -16,6 +16,6 @@ class EmailService(
         message: String,
         purpose: EmailPurpose,
     ): EmailDispatch {
-        return EmailDispatch(account = account, message = message, purpose = purpose)
+        return EmailDispatch.create(account, message, purpose)
     }
 }

@@ -16,6 +16,6 @@ class SmsService(
         message: String,
         purpose: SmsPurpose,
     ): SmsDispatch {
-        return SmsDispatch(account = account, message = message, purpose = purpose)
+        return SmsDispatch.create(account, message, purpose)
     }
 }
