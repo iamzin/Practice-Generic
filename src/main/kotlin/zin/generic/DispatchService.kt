@@ -1,17 +1,31 @@
 package zin.generic
 
 import org.springframework.transaction.annotation.Transactional
+import java.lang.reflect.ParameterizedType
+import kotlin.reflect.KClass
+import kotlin.reflect.full.companionObject
 
 @Transactional
 abstract class DispatchService<D : Dispatch<A, P>, A : Account, P : Purpose>(
     private val dispatchRepository: DispatchRepository<D, A, P>,
 ) {
+    init {
+        (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments.also { typeArguments ->
+            dispatchClass = (typeArguments[0] as Class<D>).kotlin
+        }
+    }
+
+    private var dispatchClass: KClass<D>
+
     fun register(
         account: A,
         message: String,
         purpose: P,
     ): D {
-        val dispatch: D = createDispatch(account, message, purpose)
+        val companionObject: KClass<*> = dispatchClass.companionObject!!
+        val instance = companionObject.objectInstance!! as CreateDispatch<D, A, P>
+
+        val dispatch: D = instance.create(account, message, purpose)
         return dispatchRepository.save(dispatch)
     }
 
@@ -23,10 +37,4 @@ abstract class DispatchService<D : Dispatch<A, P>, A : Account, P : Purpose>(
         return dispatch.buildRequest()
             .also { println(it) }
     }
-
-    abstract fun createDispatch(
-        account: A,
-        message: String,
-        purpose: P,
-    ): D
 }

@@ -10,12 +10,4 @@ import zin.generic.email.domain.repository.EmailRepository
 @Service
 class EmailService(
     emailRepository: EmailRepository,
-) : DispatchService<EmailDispatch, EmailAddress, EmailPurpose>(emailRepository) {
-    override fun createDispatch(
-        account: EmailAddress,
-        message: String,
-        purpose: EmailPurpose,
-    ): EmailDispatch {
-        return EmailDispatch.create(account, message, purpose)
-    }
-}
+) : DispatchService<EmailDispatch, EmailAddress, EmailPurpose>(emailRepository)

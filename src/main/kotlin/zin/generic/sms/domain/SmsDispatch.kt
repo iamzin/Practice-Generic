@@ -1,6 +1,7 @@
 package zin.generic.sms.domain
 
 import jakarta.persistence.Entity
+import zin.generic.CreateDispatch
 import zin.generic.Dispatch
 
 @Entity
@@ -10,8 +11,8 @@ class SmsDispatch(
     message: String,
     purpose: SmsPurpose,
 ) : Dispatch<PhoneNumber, SmsPurpose>(id, account, message, purpose) {
-    companion object {
-        fun create(
+    companion object : CreateDispatch<SmsDispatch, PhoneNumber, SmsPurpose> {
+        override fun create(
             account: PhoneNumber,
             message: String,
             purpose: SmsPurpose,

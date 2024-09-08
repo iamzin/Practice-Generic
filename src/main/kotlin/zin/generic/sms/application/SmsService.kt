@@ -10,12 +10,4 @@ import zin.generic.sms.domain.repository.SmsRepository
 @Service
 class SmsService(
     smsRepository: SmsRepository,
-) : DispatchService<SmsDispatch, PhoneNumber, SmsPurpose>(smsRepository) {
-    override fun createDispatch(
-        account: PhoneNumber,
-        message: String,
-        purpose: SmsPurpose,
-    ): SmsDispatch {
-        return SmsDispatch.create(account, message, purpose)
-    }
-}
+) : DispatchService<SmsDispatch, PhoneNumber, SmsPurpose>(smsRepository)
