@@ -1,5 +1,6 @@
 package zin.generic.sms.application
 
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -18,19 +19,19 @@ class SmsDispatchServiceTest(
     private val smsRepository: SmsRepository,
 ) {
     @Test
-    fun `sendEmail()`() {
-        val account = "01012345678"
+    fun `sendSms()`() {
+        val account = PhoneNumber("01012345678")
 
         // register
         val smsDispatch =
-            SmsDispatch.create(PhoneNumber(account), "Hello, World!", SmsPurpose.ACCOUNT_ACTIVATION)
+            SmsDispatch.create(account, "Hello, World!", SmsPurpose.ACCOUNT_ACTIVATION)
                 .also { smsRepository.save(it) }
 
         smsDispatch.id shouldNotBe null
 
         // send
-//        val result = smsService.sendSms(account)
-//
-//        result shouldBe "Sending sms to $account with message: Hello, World!"
+        val result = smsService.send(account)
+
+        result shouldBe "Sending to $account with message: Hello, World!"
     }
 }
