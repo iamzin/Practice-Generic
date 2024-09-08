@@ -1,7 +1,10 @@
 package zin.generic
 
-abstract class DispatchService<D : Dispatch<A, P>, A : Account, P : Purpose, R : DispatchRepository<D, A, P>>(
-    private val dispatchRepository: R,
+import org.springframework.transaction.annotation.Transactional
+
+@Transactional
+abstract class DispatchService<D : Dispatch<A, P>, A : Account, P : Purpose>(
+    private val dispatchRepository: DispatchRepository<D, A, P>,
 ) {
     fun register(
         account: A,

@@ -25,5 +25,5 @@ abstract class Dispatch<A : Account, P : Purpose>(
 
     override fun hashCode(): Int = id?.hashCode() ?: 0
 
-    fun buildRequest() = "Sending to ${account.account} with message: $message"
+    fun buildRequest() = "Sending to ${account.value} with message: $message"
 }

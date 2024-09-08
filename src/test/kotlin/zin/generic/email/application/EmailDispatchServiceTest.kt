@@ -24,7 +24,6 @@ class EmailDispatchServiceTest(
         val emailDispatch: EmailDispatch = emailService.register(account, "Hello, World!", EmailPurpose.NEWSLETTER)
 
         emailDispatch.id shouldNotBe null
-
         // send
         val result: String = emailService.send(account)
 
